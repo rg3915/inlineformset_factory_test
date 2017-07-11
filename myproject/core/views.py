@@ -6,6 +6,10 @@ from .models import TaskAnswer, TaskAnswerFile
 from .forms import TaskAnswerForm, TaskAnswerFileForm
 
 
+def home(request):
+    return render(request, 'index.html')
+
+
 def taskanswer(request):
     order_form = TaskAnswer()
     item_order_formset = inlineformset_factory(
@@ -14,7 +18,7 @@ def taskanswer(request):
 
     if request.method == 'POST':
         form = TaskAnswerForm(request.POST, request.FILES,
-                               instance=order_form, prefix='main')
+                              instance=order_form, prefix='main')
         formset = item_order_formset(
             request.POST, request.FILES, instance=order_form, prefix='taskanswer')
 
@@ -32,7 +36,7 @@ def taskanswer(request):
         'formset': formset,
     }
 
-    return render(request, 'index.html', context)
+    return render(request, 'taskanswer1.html', context)
 
 
 class TaskAnswerCreate(TemplateView):
@@ -40,23 +44,25 @@ class TaskAnswerCreate(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(TaskAnswerCreate, self).get_context_data(**kwargs)
-        obj=self.object
-        
+        obj = self.object
+
         item_order_formset = inlineformset_factory(
             TaskAnswer, TaskAnswerFile, form=TaskAnswerFileForm, extra=0,
             can_delete=False, min_num=1, validate_min=True)
-        formset = item_order_formset(instance=TaskAnswer(), prefix='taskanswer')
+        formset = item_order_formset(
+            instance=TaskAnswer(), prefix='taskanswer')
         context['formset'] = formset
         return context
 
     def post(self, request, *args, **kwargs):
 
         obj = self.get_object()
-        
+
         # if 'apply_btn' in request.POST:
         if self.request.POST:
             item_order_formset = inlineformset_factory(
                 TaskAnswer, TaskAnswerFile, form=TaskAnswerFileForm, extra=0,
                 can_delete=False, min_num=1, validate_min=True)
-            formset = item_order_formset(instance=TaskAnswer(), prefix='taskanswer')
+            formset = item_order_formset(
+                instance=TaskAnswer(), prefix='taskanswer')
             formset.save()
