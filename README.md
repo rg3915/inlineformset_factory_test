@@ -1,6 +1,6 @@
-# inlineformsettemp
+# inlineformset_factory_test
 
-Tentando rodar o inlineformset_factory.
+Testes com inlineformset_factory_test.
 
 ## Como colaborar
 
