@@ -6,7 +6,7 @@ class TaskAnswerForm(forms.ModelForm):
 
     class Meta:
         model = TaskAnswer
-        fields = '__all__'
+        fields = ('candidate',)
 
 
 class TaskAnswerFileForm(forms.ModelForm):

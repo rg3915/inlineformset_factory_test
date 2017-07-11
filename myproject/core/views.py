@@ -7,27 +7,28 @@ from .forms import TaskAnswerForm, TaskAnswerFileForm
 
 
 def taskanswer(request):
-    order_forms = TaskAnswer()
+    order_form = TaskAnswer()
     item_order_formset = inlineformset_factory(
         TaskAnswer, TaskAnswerFile, form=TaskAnswerFileForm, extra=0, can_delete=False,
         min_num=1, validate_min=True)
 
     if request.method == 'POST':
-        forms = TaskAnswerForm(request.POST, request.FILES,
-                               instance=order_forms, prefix='main')
+        form = TaskAnswerForm(request.POST, request.FILES,
+                               instance=order_form, prefix='main')
         formset = item_order_formset(
-            request.POST, request.FILES, instance=order_forms, prefix='taskanswer')
+            request.POST, request.FILES, instance=order_form, prefix='taskanswer')
 
-        if forms.is_valid() and formset.is_valid():
-            forms = forms.save()
+        if form.is_valid() and formset.is_valid():
+            form = form.save()
             formset.save()
+            print(formset)
             return HttpResponseRedirect(resolve_url('taskanswer1'))
     else:
-        forms = TaskAnswerForm(instance=order_forms, prefix='main')
-        formset = item_order_formset(instance=order_forms, prefix='taskanswer')
+        form = TaskAnswerForm(instance=order_form, prefix='main')
+        formset = item_order_formset(instance=order_form, prefix='taskanswer')
 
     context = {
-        'forms': forms,
+        'form': form,
         'formset': formset,
     }
 
