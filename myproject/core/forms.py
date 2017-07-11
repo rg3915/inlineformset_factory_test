@@ -13,4 +13,4 @@ class TaskAnswerFileForm(forms.ModelForm):
 
     class Meta:
         model = TaskAnswerFile
-        fields = '__all__'
+        fields = ('answer_file',)

@@ -10,8 +10,8 @@
     }
   </style>
 
-  <div class="col-md-4 col-md-offset-4">
-    <h4>Save with FBV</h4>
+  <div class="col-md-6 col-md-offset-3">
+    <h4>Save with CBV</h4>
     <form action="." method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form|bootstrap }}
@@ -24,7 +24,7 @@
         {% endfor %}
       </div>
 
-      <a id="add-item" class="btn btn-info"><i class="fa fa-plus"></i>Add Item</a><br>
+    <a class="btn btn-info" id="add-item"><i class="fa fa-plus"></i></a><br>
       <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
   </div>
@@ -43,7 +43,7 @@
 
         // update form count
         $('#id_taskanswer-TOTAL_FORMS').attr('value', count + 1);
-
+        
         // some animate to scroll to view our new form
         $('html, body').animate({
           scrollTop: $("#add-item").position().top - 200
@@ -53,8 +53,10 @@
   </script>
 
   <script type="text/html" id="item-order">
+    <br>
     <div id="item-__prefix__" class="form-group" style="margin-top: 10px">
       {{ formset.empty_form|bootstrap }}
     </div>
   </script>
+
 {% endblock js %}
